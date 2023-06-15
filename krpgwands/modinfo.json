@@ -1,0 +1,12 @@
+{
+  "type": "code",
+  "modid": "krpgwands",
+  "name": "krpgwands",
+  "authors": ["BloodThunder"],
+  "description": "Adds new magical wands and staves. Intended for use with KRPG Enchantments.",
+  "version": "0.0.3",
+  "dependencies": {
+    "game": "",
+    "krpglib": "0.0.1"
+  }
+}

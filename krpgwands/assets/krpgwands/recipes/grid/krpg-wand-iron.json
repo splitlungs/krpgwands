@@ -1,0 +1,24 @@
+{
+  "ingredientPattern": "R,S,L",
+  "width": 1,
+  "height": 3,
+  "ingredients": {
+    "R": {
+      "type": "item",
+      "code": "game:resin"
+    },
+    "S": {
+      "type": "item",
+      "code": "game:ingot-iron"
+    },
+    "L": {
+      "type": "block",
+      "code": "game:linen-*"
+    }
+  },
+  "output": {
+    "type": "item",
+    "code": "krpgwands:krpg-wand-iron",
+    "quantity": 1
+  }
+}

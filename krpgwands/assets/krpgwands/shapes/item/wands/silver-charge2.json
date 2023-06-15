@@ -1,0 +1,88 @@
+{
+	"editor": {
+		"allAngles": false,
+		"entityTextureMode": false
+	},
+	"textureWidth": 32,
+	"textureHeight": 32,
+	"textureSizes": {
+		"wand-wood": [32,32]
+	},
+	"textures": {
+		"linen": "game:item/tool/material/linen",
+		"silver": "game:item/tool/material/silver"
+	},
+	"elements": [
+		{
+			"name": "origin",
+			"from": [ 8.0, 0.0, 8.0 ],
+			"to": [ 8.0, 0.0, 8.0 ],
+			"rotationOrigin": [ 8.0, 0.0, 8.0 ],
+			"faces": {
+			},
+			"children": [
+				{
+					"name": "WandBase",
+					"from": [ 0.0, 0.0, -3.0 ],
+					"to": [ 0.5, 0.5, 4.0 ],
+					"rotationOrigin": [ 0.0, 0.0, -3.0 ],
+					"rotationY": -8.0,
+					"faces": {
+						"north": { "texture": "#silver", "uv": [ 0.0, 0.0, 16.0, 32.0 ], "autoUv": false, "windMode": [-1,-1,-1,-1] },
+						"east": { "texture": "#silver", "uv": [ 0.0, 0.0, 16.0, 32.0 ], "rotation": 90, "autoUv": false },
+						"south": { "texture": "#silver", "uv": [ 0.0, 0.0, 16.0, 32.0 ], "glow": 1, "autoUv": false, "snapUv": false },
+						"west": { "texture": "#silver", "uv": [ 0.0, 0.0, 16.0, 32.0 ], "rotation": 90, "autoUv": false },
+						"up": { "texture": "#silver", "uv": [ 0.0, 0.0, 16.0, 32.0 ], "rotation": 90, "autoUv": false, "windMode": [-1,-1,-1,-1] },
+						"down": { "texture": "#silver", "uv": [ 0.0, 0.0, 16.0, 32.0 ], "autoUv": false }
+					},
+					"children": [
+						{
+							"name": "Grip",
+							"from": [ -0.05, -0.05, 4.5 ],
+							"to": [ 0.55, 0.55, 6.0 ],
+							"rotationOrigin": [ 0.0, 0.0, 5.0 ],
+							"faces": {
+								"north": { "texture": "#linen", "uv": [ 0.0, 0.0, 32.0, 32.0 ], "autoUv": false },
+								"east": { "texture": "#linen", "uv": [ 0.0, 0.0, 32.0, 32.0 ], "autoUv": false },
+								"south": { "texture": "#linen", "uv": [ 0.0, 0.0, 32.0, 32.0 ], "autoUv": false },
+								"west": { "texture": "#linen", "uv": [ 0.0, 0.0, 32.0, 32.0 ], "autoUv": false },
+								"up": { "texture": "#linen", "uv": [ 0.0, 0.0, 32.0, 32.0 ], "rotation": 90, "autoUv": false },
+								"down": { "texture": "#linen", "uv": [ 0.0, 0.0, 32.0, 32.0 ], "rotation": 90, "autoUv": false }
+							}
+						}
+					],
+					"attachmentpoints": [
+						{
+							"code": "Point1",
+							"posX": "0.0","posY": "0.0","posZ": "5.0",
+							"rotationX": "0.0","rotationY": "0.0","rotationZ": "0.0"
+						}
+					]
+				}
+			]
+		}
+	],
+	"animations": [
+		{
+			"name": "Draw",
+			"code": "draw",
+			"quantityframes": 15,
+			"onActivityStopped": "EaseOut",
+			"onAnimationEnd": "Hold",
+			"keyframes": [
+				{
+					"frame": 7,
+					"elements": {
+						"WandBase": { "rotationX": 0.0, "rotationY": 0.0, "rotationZ": 0.0 }
+					}
+				},
+				{
+					"frame": 10,
+					"elements": {
+						"WandBase": { "rotationX": 22.5, "rotationY": 0.0, "rotationZ": 0.0 }
+					}
+				}
+			]
+		}
+	]
+}
