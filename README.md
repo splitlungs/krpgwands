@@ -1,5 +1,4 @@
 # krpgwands
-Adds wands to Vintage Story! Requires krpglib and krpgenchantment
 
 Warning: This is a Work In Progress 
 Expect lots of game-breaking changes as development continues.
