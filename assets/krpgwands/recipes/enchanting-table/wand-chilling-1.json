@@ -1,0 +1,25 @@
+{
+  "name": "krpgenchantment:enchantment-chilling-1",
+  "processingHours": 1,
+  "requiresTrait": null,
+  "ingredients": {
+    "reagent": {
+      "type": "item",
+      "code": "krpgenchantment:reagent-chilling",
+      "quantity": 1
+    },
+    "target": {
+      "type": "item",
+      "code": "krpgwands:krpg-wand-*",
+      "allowedVariants": [ "bismuthbronze", "blackbronze", "brass", "copper", "gold", "iron", "lead", "obsidian", "silver", "steel", "tinbronze", "wood" ],
+      "quantity": 1
+    }
+  },
+  "enchantments": [
+    {
+      "enchantCode": "chilling",
+      "enchantName": "enchantment-chilling-1",
+      "enchantPower": 1
+    }
+  ]
+}

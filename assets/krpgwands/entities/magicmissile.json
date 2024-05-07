@@ -1,0 +1,46 @@
+{
+  "code": "magicmissile",
+  "class": "MagicProjectileEntity",
+  "variantgroups": [
+    {
+      "code": "material",
+      "states": [ "temporal" ]
+    }
+  ],
+  "hitboxSize": {
+    "x": 0.125,
+    "y": 0.125
+  },
+  "client": {
+    "size": 0.75,
+    "renderer": "Shape",
+    "shapeByType": {
+      "temporal": { "base": "item/magicmissile/temporal" }
+    },
+    "behaviors": [
+      {
+        "code": "passivephysics",
+        "groundDragFactor": 1,
+        "airDragFactor": 0.05,
+        "gravityFactor": 0.0
+      },
+      { "code": "interpolateposition" }
+    ]
+  },
+  "server": {
+    "behaviors": [
+      {
+        "code": "passivephysics",
+        "groundDragFactor": 1,
+        "airDragFactor": 0.05,
+        "gravityFactor": 0.0
+      },
+      {
+        "code": "despawn",
+        "minSeconds": 6
+      }
+    ]
+  },
+  "sounds": {
+  }
+}
