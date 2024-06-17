@@ -1,6 +1,6 @@
 {
   "code": "magicmissile",
-  "class": "MagicProjectileEntity",
+  "class": "EntityProjectile",
   "variantgroups": [
     {
       "code": "material",

@@ -87,6 +87,7 @@
   <Content Include="assets\**">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
   </Content>
+  <None Remove="assets\krpgwands\entities\magicmissile.json" />
   <None Remove="assets\krpgwands\recipes\enchanting-table\wand-chilling-1.json" />
   <None Remove="assets\krpgwands\recipes\enchanting-table\wand-flaming-1.json" />
   <None Remove="assets\krpgwands\recipes\enchanting-table\wand-frost-1.json" />

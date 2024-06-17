@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using System.Text;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
@@ -7,9 +8,12 @@ using Vintagestory.API.Common.Entities;
 using Vintagestory.API.Config;
 using Vintagestory.API.MathTools;
 using Vintagestory.API.Util;
+using Vintagestory.GameContent;
 
 namespace krpgwands
 {
+    public enum EnumEnchantments { chilling, flaming, frost, harming, healing, knockback, igniting, lightning, pit, shocking }
+
     /// <summary>
     /// Cloned from ItemBow.cs
     /// </summary>
@@ -152,6 +156,14 @@ namespace krpgwands
                 return;
             }
 
+            // Get Enchantments
+            Dictionary<string, int> enchants = new Dictionary<string, int>();
+            foreach (var val in Enum.GetValues(typeof(EnumEnchantments)))
+            {
+                int ePower = slot.Itemstack.Attributes.GetInt(val.ToString(), 0);
+                if (ePower > 0) { enchants.Add(val.ToString(), ePower); }
+            }
+
             float damage = 0;
             float accuracyBonus = 0f;
 
@@ -167,52 +179,29 @@ namespace krpgwands
             if (byEntity is EntityPlayer) byPlayer = byEntity.World.PlayerByUid(((EntityPlayer)byEntity).PlayerUID);
             byEntity.World.PlaySoundAt(new AssetLocation("game:sounds/effect/translocate-breakdimension"), byEntity, byPlayer, false, 8);
 
-
-            // TODO: Make different projectile entities for different wands
-            // EntityProperties type = byEntity.World.GetEntityType(new AssetLocation("krpgwands:magicmissile-" + slot.Itemstack.Collectible.Variant["material"]));
             EntityProperties type = byEntity.World.GetEntityType(new AssetLocation("krpgwands:magicmissile-" + "temporal"));
-            var entitymagicmissile = byEntity.World.ClassRegistry.CreateEntity(type) as MagicProjectileEntity;
+            var entitymagicmissile = byEntity.World.ClassRegistry.CreateEntity(type) as EntityProjectile;
             entitymagicmissile.FiredBy = byEntity;
             entitymagicmissile.Damage = damage;
-
-            // Enchantments
-            int power = 0;
-            power = slot.Itemstack.Attributes.GetInt("chilling", 0);
-            if (power > 0) entitymagicmissile.WatchedAttributes.SetInt("chilling", power);
-            power = slot.Itemstack.Attributes.GetInt("flaming", 0);
-            if (power > 0) entitymagicmissile.WatchedAttributes.SetInt("flaming", power);
-            power = slot.Itemstack.Attributes.GetInt("frost", 0);
-            if (power > 0) entitymagicmissile.WatchedAttributes.SetInt("frost", power);
-            power = slot.Itemstack.Attributes.GetInt("harming", 0);
-            if (power > 0) entitymagicmissile.WatchedAttributes.SetInt("harming", power);
-            power = slot.Itemstack.Attributes.GetInt("healing", 0);
-            if (power > 0) entitymagicmissile.WatchedAttributes.SetInt("healing", power);
-            power = slot.Itemstack.Attributes.GetInt("knockback", 0);
-            if (power > 0) entitymagicmissile.WatchedAttributes.SetInt("knockback", power);
-            power = slot.Itemstack.Attributes.GetInt("igniting", 0);
-            if (power > 0) entitymagicmissile.WatchedAttributes.SetInt("igniting", power);
-            power = slot.Itemstack.Attributes.GetInt("lightning", 0);
-            if (power > 0) entitymagicmissile.WatchedAttributes.SetInt("lightning", power);
-            power = slot.Itemstack.Attributes.GetInt("shocking", 0);
-            if (power > 0) entitymagicmissile.WatchedAttributes.SetInt("shocking", power);
-            power = slot.Itemstack.Attributes.GetInt("pit", 0);
-            if (power > 0) entitymagicmissile.WatchedAttributes.SetInt("pit", power);
-            
             float acc = Math.Max(0.001f, (1 - byEntity.Attributes.GetFloat("aimingAccuracy", 0)));
-
             double rndpitch = byEntity.WatchedAttributes.GetDouble("aimingRandPitch", 1) * acc * (0.75 * accuracyBonus);
             double rndyaw = byEntity.WatchedAttributes.GetDouble("aimingRandYaw", 1) * acc * (0.75 * accuracyBonus);
-
             Vec3d pos = byEntity.ServerPos.XYZ.Add(0, byEntity.LocalEyePos.Y, 0);
             Vec3d aheadPos = pos.AheadCopy(1, byEntity.SidedPos.Pitch + rndpitch, byEntity.SidedPos.Yaw + rndyaw);
             Vec3d velocity = (aheadPos - pos) * byEntity.Stats.GetBlended("bowDrawingStrength");
-
-
             entitymagicmissile.ServerPos.SetPos(byEntity.SidedPos.BehindCopy(0.21).XYZ.Add(0, byEntity.LocalEyePos.Y, 0));
             entitymagicmissile.ServerPos.Motion.Set(velocity);
             entitymagicmissile.Pos.SetFrom(entitymagicmissile.ServerPos);
             entitymagicmissile.World = byEntity.World;
             entitymagicmissile.SetRotation();
+
+            // Make a new ItemStack to pass Enchantments
+            entitymagicmissile.ProjectileStack = new ItemStack();
+            // Write to temp stack for Enchantments to process
+            foreach (KeyValuePair<string, int> pair in enchants)
+            {
+                entitymagicmissile.ProjectileStack.Attributes.SetInt(pair.Key, pair.Value);
+            }
 
             byEntity.World.SpawnEntity(entitymagicmissile);
 
