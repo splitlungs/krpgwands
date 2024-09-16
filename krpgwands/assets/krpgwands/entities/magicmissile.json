@@ -3,7 +3,7 @@
   "class": "EntityProjectile",
   "variantgroups": [
     {
-      "code": "material",
+      "code": "type",
       "states": [ "temporal" ]
     }
   ],
@@ -12,10 +12,10 @@
     "y": 0.125
   },
   "client": {
-    "size": 0.75,
+    "size": 0.25,
     "renderer": "Shape",
     "shapeByType": {
-      "temporal": { "base": "item/magicmissile/temporal" }
+      "*": { "base": "krpgwands:entity/magicmissile-{type}" }
     },
     "behaviors": [
       {
@@ -37,7 +37,7 @@
       },
       {
         "code": "despawn",
-        "minSeconds": 6
+        "minSeconds": 0.1
       }
     ]
   },

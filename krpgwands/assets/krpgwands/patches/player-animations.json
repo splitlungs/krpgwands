@@ -1,0 +1,185 @@
+[
+  {
+    "op": "add",
+    "file": "game:entities/humanoid/player.json",
+    "path": "/client/animations/-",
+    "value": {
+      "code": "wandaim",
+      "animation": "wandaim",
+      "blendMode": "Add",
+      "elementWeight": {
+        "UpperArmR": 90,
+        "LowerArmR": 90,
+        "UpperArmL": 0,
+        "LowerArmL": 0,
+        "ItemAnchor": 90
+      },
+      "elementBlendMode": {
+        "UpperArmR": "AddAverage",
+        "LowerArmR": "AddAverage",
+        "UpperArmL": "AddAverage",
+        "LowerArmL": "AddAverage",
+        "ItemAnchor": "AddAverage"
+      }
+    },
+    "side": "server"
+  },
+  {
+    "op": "add",
+    "file": "game:shapes/entity/humanoid/seraph-faceless.json",
+    "path": "/animations/-",
+    "value": {
+      "name": "WandAim",
+      "code": "wandaim",
+      "quantityframes": 16,
+      "onActivityStopped": "EaseOut",
+      "onAnimationEnd": "Hold",
+      "keyframes": [
+        {
+          "frame": 0,
+          "elements": {
+            "UpperTorso": {
+              "offsetX": 0.0,
+              "offsetY": 0.0,
+              "offsetZ": 0.0,
+              "rotationX": 0.0,
+              "rotationY": 0.0,
+              "rotationZ": 0.0
+            },
+            "Neck": {
+              "offsetX": 0.0,
+              "offsetY": 0.0,
+              "offsetZ": 0.0,
+              "rotationX": 0.0,
+              "rotationY": 0.0,
+              "rotationZ": 0.0
+            },
+            "Head": {
+              "rotationX": 0.0,
+              "rotationY": 0.0,
+              "rotationZ": 8.0
+            },
+            "UpperArmR": {
+              "offsetX": 1.0,
+              "offsetY": 0.0,
+              "offsetZ": 0.0,
+              "rotationX": 0.0,
+              "rotationY": 0.0,
+              "rotationZ": 0.0
+            },
+            "LowerArmR": {
+              "offsetX": 0.0,
+              "offsetY": 0.0,
+              "offsetZ": 0.0,
+              "rotationX": 0.0,
+              "rotationY": 0.0,
+              "rotationZ": 0.0
+            },
+            "ItemAnchor": {
+              "offsetX": 0.0,
+              "offsetY": 0.0,
+              "offsetZ": 0.0,
+              "rotationX": 0.0,
+              "rotationY": 0.0,
+              "rotationZ": 8.0
+            }
+          }
+        },
+        {
+          "frame": 6,
+          "elements": {
+            "UpperArmL": {
+              "rotationX": 5.0,
+              "rotationY": 11.0,
+              "rotationZ": -45.0
+            }
+          }
+        },
+        {
+          "frame": 10,
+          "elements": {
+            "UpperArmR": {
+              "offsetX": 1.1,
+              "offsetY": 0.0,
+              "offsetZ": 1.0,
+              "rotationX": 3.0,
+              "rotationY": -5.0,
+              "rotationZ": -85.0
+            },
+            "ItemAnchor": {
+              "offsetX": 0,
+              "offsetY": 0.0,
+              "offsetZ": 0.0,
+              "rotationX": -16.0,
+              "rotationY": 0.0,
+              "rotationZ": 36.0
+            }
+          }
+        },
+        {
+          "frame": 13,
+          "elements": {
+            "UpperArmR": {
+              "rotationX": 3.0,
+              "rotationY": -8.0,
+              "rotationZ": -90.0
+            }
+          }
+        },
+        {
+          "frame": 15,
+          "elements": {
+            "LowerTorso": {
+              "rotationX": 0.0,
+              "rotationY": 0.0,
+              "rotationZ": 0.0
+            },
+            "UpperTorso": {
+              "offsetX": 0.0,
+              "offsetY": 0.0,
+              "offsetZ": 0.0,
+              "rotationX": 0.0,
+              "rotationY": 0.0,
+              "rotationZ": 0.0
+            },
+            "UpperArmR": {
+              "offsetX": 1.2,
+              "offsetY": 0.0,
+              "offsetZ": 1.0,
+              "rotationX": 3.0,
+              "rotationY": -16.0,
+              "rotationZ": -92.0
+            },
+            "LowerArmR": {
+              "rotationX": 0.0,
+              "rotationY": -3.0,
+              "rotationZ": -5.0
+            },
+            "ItemAnchor": {
+              "offsetX": 0.0,
+              "offsetY": 0.0,
+              "offsetZ": 0.0,
+              "rotationX": -30.0,
+              "rotationY": 0.0,
+              "rotationZ": 62.0
+            },
+            "Neck": {
+              "offsetX": 0.0,
+              "offsetY": 0.0,
+              "offsetZ": 0.2,
+              "rotationX": 0.0,
+              "rotationY": 0.0,
+              "rotationZ": 0.0
+            },
+            "Head": {
+              "rotationX": 0.0,
+              "rotationY": 0.0,
+              "rotationZ": 0.0
+            }
+          }
+        }
+      ]
+    },
+    "side": "client"
+  }
+]

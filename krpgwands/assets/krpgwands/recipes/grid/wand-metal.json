@@ -1,0 +1,41 @@
+{
+  "ingredientPattern": "HSR,CGM",
+  "width": 3,
+  "height": 2,
+  "ingredients": {
+    "C": {
+      "type": "item",
+      "code": "game:chisel-*",
+      "isTool": true
+    },
+    "M": {
+      "type": "item",
+      "code": "game:hammer-*",
+      "isTool": true
+    },
+    "G": {
+      "type": "item",
+      "code": "game:gem-emerald-rough"
+    },
+    "H": {
+      "type": "item",
+      "code": "krpgwands:wand-handle"
+    },
+    "R": {
+      "type": "item",
+      "code": "game:resin",
+      "quantity": 2
+    },
+    "S": {
+      "type": "item",
+      "code": "krpgwands:wand-shaft-metal-*",
+      "name": "metal",
+      "allowedVariants": [ "copper", "tinbronze", "bismuthbronze", "blackbronze", "gold", "iron", "meteoriciron", "silver", "steel" ]
+    }
+  },
+  "output": {
+    "type": "item",
+    "code": "krpgwands:wand-metal-{metal}",
+    "quantity": 1
+  }
+}

@@ -88,25 +88,74 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
   </Content>
   <None Remove="assets\krpgwands\entities\magicmissile.json" />
-  <None Remove="assets\krpgwands\recipes\enchanting-table\wand-chilling-1.json" />
-  <None Remove="assets\krpgwands\recipes\enchanting-table\wand-flaming-1.json" />
-  <None Remove="assets\krpgwands\recipes\enchanting-table\wand-frost-1.json" />
-  <None Remove="assets\krpgwands\recipes\enchanting-table\wand-harming-1.json" />
-  <None Remove="assets\krpgwands\recipes\enchanting-table\wand-healing-1.json" />
-  <None Remove="assets\krpgwands\recipes\enchanting-table\wand-igniting-1.json" />
-  <None Remove="assets\krpgwands\recipes\enchanting-table\wand-knockback-1.json" />
-  <None Remove="assets\krpgwands\recipes\enchanting-table\wand-lightning-1.json" />
-  <None Remove="assets\krpgwands\recipes\enchanting-table\wand-pit-1.json" />
-  <None Remove="assets\krpgwands\recipes\enchanting-table\wand-shocking-1.json" />
-  <None Remove="assets\krpgwands\recipes\grid\krpg-wand-steel.json" />
+  <None Remove="assets\krpgwands\itemtypes\wand-handle.json" />
+  <None Remove="assets\krpgwands\itemtypes\wand-metal.json" />
+  <None Remove="assets\krpgwands\itemtypes\wand-shaft-metal.json" />
+  <None Remove="assets\krpgwands\itemtypes\wand-shaft-wood.json" />
+  <None Remove="assets\krpgwands\itemtypes\wand-wood.json" />
+  <None Remove="assets\krpgwands\patches\player-animations.json" />
+  <None Remove="assets\krpgwands\recipes\grid\wand-handle.json" />
+  <None Remove="assets\krpgwands\recipes\grid\wand-metal.json" />
+  <None Remove="assets\krpgwands\recipes\grid\wand-shaft-wood.json" />
+  <None Remove="assets\krpgwands\recipes\smithing\wand-shaft-metal.json" />
+  <None Remove="assets\krpgwands\shapes\entity\magicmissile-temporal.json" />
+  <None Remove="assets\krpgwands\shapes\item\parts\wand-handle-test.json" />
+  <None Remove="assets\krpgwands\shapes\item\parts\wand-shaft-metal-gem.json" />
+  <None Remove="assets\krpgwands\shapes\item\parts\wand-shaft-metal.json" />
+  <None Remove="assets\krpgwands\shapes\item\parts\wand-shaft-wood-gem.json" />
+  <None Remove="assets\krpgwands\shapes\item\parts\wand-shaft-wood.json" />
+  <None Remove="assets\krpgwands\shapes\item\krpg-wands\bismuthbronze-charge1.json" />
+  <None Remove="assets\krpgwands\shapes\item\krpg-wands\bismuthbronze-charge2.json" />
+  <None Remove="assets\krpgwands\shapes\item\krpg-wands\bismuthbronze-charge3.json" />
+  <None Remove="assets\krpgwands\shapes\item\krpg-wands\bismuthbronze.json" />
+  <None Remove="assets\krpgwands\shapes\item\krpg-wands\blackbronze-charge1.json" />
+  <None Remove="assets\krpgwands\shapes\item\krpg-wands\blackbronze-charge2.json" />
+  <None Remove="assets\krpgwands\shapes\item\krpg-wands\blackbronze-charge3.json" />
+  <None Remove="assets\krpgwands\shapes\item\krpg-wands\blackbronze.json" />
+  <None Remove="assets\krpgwands\shapes\item\krpg-wands\brass-charge1.json" />
+  <None Remove="assets\krpgwands\shapes\item\krpg-wands\brass-charge2.json" />
+  <None Remove="assets\krpgwands\shapes\item\krpg-wands\brass-charge3.json" />
+  <None Remove="assets\krpgwands\shapes\item\krpg-wands\brass.json" />
+  <None Remove="assets\krpgwands\shapes\item\krpg-wands\copper-charge1.json" />
+  <None Remove="assets\krpgwands\shapes\item\krpg-wands\copper-charge2.json" />
+  <None Remove="assets\krpgwands\shapes\item\krpg-wands\copper-charge3.json" />
+  <None Remove="assets\krpgwands\shapes\item\krpg-wands\copper.json" />
+  <None Remove="assets\krpgwands\shapes\item\krpg-wands\gold-charge1.json" />
+  <None Remove="assets\krpgwands\shapes\item\krpg-wands\gold-charge2.json" />
+  <None Remove="assets\krpgwands\shapes\item\krpg-wands\gold-charge3.json" />
+  <None Remove="assets\krpgwands\shapes\item\krpg-wands\gold.json" />
+  <None Remove="assets\krpgwands\shapes\item\krpg-wands\iron-charge1.json" />
+  <None Remove="assets\krpgwands\shapes\item\krpg-wands\iron-charge2.json" />
+  <None Remove="assets\krpgwands\shapes\item\krpg-wands\iron-charge3.json" />
+  <None Remove="assets\krpgwands\shapes\item\krpg-wands\iron.json" />
+  <None Remove="assets\krpgwands\shapes\item\krpg-wands\lead-charge1.json" />
+  <None Remove="assets\krpgwands\shapes\item\krpg-wands\lead-charge2.json" />
+  <None Remove="assets\krpgwands\shapes\item\krpg-wands\lead-charge3.json" />
+  <None Remove="assets\krpgwands\shapes\item\krpg-wands\lead.json" />
+  <None Remove="assets\krpgwands\shapes\item\krpg-wands\obsidian-charge1.json" />
+  <None Remove="assets\krpgwands\shapes\item\krpg-wands\obsidian-charge2.json" />
+  <None Remove="assets\krpgwands\shapes\item\krpg-wands\obsidian-charge3.json" />
+  <None Remove="assets\krpgwands\shapes\item\krpg-wands\obsidian.json" />
+  <None Remove="assets\krpgwands\shapes\item\krpg-wands\silver-charge1.json" />
+  <None Remove="assets\krpgwands\shapes\item\krpg-wands\silver-charge2.json" />
+  <None Remove="assets\krpgwands\shapes\item\krpg-wands\silver-charge3.json" />
+  <None Remove="assets\krpgwands\shapes\item\krpg-wands\silver.json" />
+  <None Remove="assets\krpgwands\shapes\item\krpg-wands\steel-charge1.json" />
+  <None Remove="assets\krpgwands\shapes\item\krpg-wands\steel-charge2.json" />
+  <None Remove="assets\krpgwands\shapes\item\krpg-wands\steel-charge3.json" />
+  <None Remove="assets\krpgwands\shapes\item\krpg-wands\steel.json" />
+  <None Remove="assets\krpgwands\shapes\item\krpg-wands\tinbronze-charge1.json" />
+  <None Remove="assets\krpgwands\shapes\item\krpg-wands\tinbronze-charge2.json" />
+  <None Remove="assets\krpgwands\shapes\item\krpg-wands\tinbronze-charge3.json" />
+  <None Remove="assets\krpgwands\shapes\item\krpg-wands\tinbronze.json" />
+  <None Remove="assets\krpgwands\shapes\item\krpg-wands\wood-charge1.json" />
+  <None Remove="assets\krpgwands\shapes\item\krpg-wands\wood-charge2.json" />
+  <None Remove="assets\krpgwands\shapes\item\krpg-wands\wood-charge3.json" />
+  <None Remove="assets\krpgwands\shapes\item\krpg-wands\wood.json" />
+  <None Remove="assets\krpgwands\shapes\item\wands\wand-metal.json" />
+  <None Remove="assets\krpgwands\shapes\item\wands\wand-wood.json" />
   <Content Include="modinfo.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-  </Content>
-</ItemGroup>
-
-<ItemGroup>
-  <Content Update="assets\krpgwands\recipes\enchanting-table\wand-knockback-1.json">
-    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
   </Content>
 </ItemGroup>
 

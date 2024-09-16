@@ -1,9 +1,9 @@
 {
-  "code": "krpg-wand",
+  "code": "wand-metal",
   "variantgroups": [
     {
-      "code": "material",
-      "states": [ "bismuthbronze", "blackbronze", "brass", "copper", "gold", "iron", "lead", "obsidian", "silver", "steel", "tinbronze", "wood" ]
+      "code": "metal",
+      "states": [ "bismuthbronze", "blackbronze", "brass", "copper", "gold", "iron", "lead", "meteoriciron", "silver", "steel", "tinbronze" ]
     }
   ],
   "class": "WandItem",
@@ -15,7 +15,7 @@
     "tools": [ "*" ]
   },
   "damagedby": [ "attacking" ],
-  "durability": 25,
+  "durability": 50,
   "durabilityByType": {
     "*-bismuthbronze": 400,
     "*-blackbronze": 450,
@@ -24,41 +24,23 @@
     "*-gold": 250,
     "*-iron": 500,
     "*-lead": 50,
-    "*-obsidian": 800,
     "*-silver": 275,
     "*-steel": 550,
-    "*-tinbronze": 300,
-    "*-wood": 25
+    "*-tinbronze": 300
   },
-  "texture": {
-    "base": "krpgwands:item/wand-wood"
+  "texturesByType": {
+    "*": { "metal": { "base": "game:block/metal/ingot/{metal}" } }
   },
-  "shape": {
-    "base": "krpgwands:item/krpg-wands/{material}",
-    "alternates": [
-      { "base": "krpgwands:item/krpg-wands/{material}-charge1" },
-      { "base": "krpgwands:item/krpg-wands/{material}-charge2" },
-      { "base": "krpgwands:item/krpg-wands/{material}-charge3" }
-    ]
+  "shapeByType": {
+    "*": { "base": "krpgwands:item/wands/wand-metal" }
   },
   "tool": "bow",
   "attributes": {
     "handbook": {
-      "groupBy": [ "wand-*" ]
+      "groupBy": [ "wand-metal-*" ]
     },
     "damageByType": {
-      "*-bismuthbronze": 0,
-      "*-blackbronze": 0,
-      "*-brass": 0,
-      "*-copper": 0,
-      "*-gold": 0,
-      "*-iron": 0,
-      "*-lead": 0,
-      "*-obsidian": 0,
-      "*-silver": 0,
-      "*-steel": 0,
-      "*-tinbronze": 0,
-      "*-wood": 0
+      "*": 0
     },
     "accuracyBonusByType": {
       "*-bismuthbronze": 0.85,
@@ -68,43 +50,41 @@
       "*-gold": 1,
       "*-iron": 0.9,
       "*-lead": 0.5,
-      "*-obsidian": 0.7,
       "*-silver": 0.95,
       "*-steel": 0.92,
-      "*-tinbronze": 0.8,
-      "*-wood": 0.56
+      "*-tinbronze": 0.8
     },
     "toolrackTransformByType": {
       "*": {
         "translation": {
-          "x": -0.35,
-          "y": 0.55,
-          "z": 0.15
+          "x": 1.43,
+          "y": 0.62,
+          "z": -0.5
         },
         "rotation": {
-          "x": 90,
-          "y": 90,
-          "z": 0
+          "x": 0,
+          "y": 0,
+          "z": 180
         },
         "origin": {
-          "x": 0.5,
+          "x": 0,
           "y": 0,
-          "z": 0.35
+          "z": 0
         },
-        "scale": 1.8
+        "scale": 2
       }
     },
     "groundStorageTransformByType": {
       "*": {
         "translation": {
           "x": 0,
-          "y": 0.1,
-          "z": -0.5
+          "y": -0.53,
+          "z": 0.78
         },
         "rotation": {
-          "x": 20,
-          "y": -180,
-          "z": -90
+          "x": -66,
+          "y": 90,
+          "z": 180
         },
         "scale": 1
       }
@@ -146,16 +126,16 @@
         "z": 0
       },
       "rotation": {
-        "x": 4,
-        "y": 1,
-        "z": 84
+        "x": 0,
+        "y": 0,
+        "z": 0
       },
       "origin": {
         "x": 0.5,
         "y": 0,
         "z": 0.5
       },
-      "scale": 2.91
+      "scale": 4
     }
   },
   "guiTransformByType": {
@@ -166,16 +146,16 @@
         "z": 0
       },
       "rotation": {
-        "x": -129,
-        "y": 25,
-        "z": 41
+        "x": 0,
+        "y": 0,
+        "z": -135
       },
       "origin": {
-        "x": 0.5,
+        "x": 0.65,
         "y": 0,
-        "z": 0.5
+        "z": 0.65
       },
-      "scale": 3.5
+      "scale": 3.4
     }
   },
   "groundTransform": {

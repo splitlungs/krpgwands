@@ -1,0 +1,12 @@
+{
+	"ingredient": { "type": "item", "code": "game:ingot-*", "name": "metal", "allowedVariants": [ "copper", "tinbronze", "bismuthbronze", "blackbronze", "gold", "iron", "meteoriciron", "silver", "steel" ] },
+	"pattern": [
+		[
+			"__#____##______",
+			"__###########__",
+			"__#____##______"
+		]
+	],
+	"name": "WandShaft",
+	"output": { "type": "item", "code": "krpgwands:wand-shaft-metal-{metal}" }
+}

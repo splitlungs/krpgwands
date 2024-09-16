@@ -1,0 +1,105 @@
+{
+  "code": "wand-shaft-wood",
+  "variantgroups": [
+    {
+      "code": "wood",
+      "states": [ "acacia", "aged", "baldcypress", "birch", "ebony", "kapok", "larch", "maple", "oak", "pine", "purpleheart", "redwood", "walnut" ]
+    }
+  ],
+  "storageFlags": 1,
+  "maxstacksize": 1,
+  "creativeinventory": {
+    "general": [ "*" ],
+    "items": [ "*" ]
+  },
+  "texturesByType": {
+    "*": { "wood": { "base": "game:block/wood/planks/{wood}1" } }
+  },
+  "shapeByType": {
+    "*": { "base": "krpgwands:item/parts/wand-shaft-wood" }
+  },
+  "attributes": {
+    "handbook": {
+      "groupBy": [ "wand-shaft-*" ]
+    }
+  },
+  "behaviors": [],
+  "fpHandTransformByType": {
+    "*": {
+      "translation": {
+        "x": 0,
+        "y": 0.5,
+        "z": 0
+      },
+      "rotation": {
+        "x": 4,
+        "y": 1,
+        "z": 84
+      },
+      "origin": {
+        "x": 0.5,
+        "y": 0,
+        "z": 0.5
+      },
+      "scale": 2.91
+    }
+  },
+  "guiTransformByType": {
+    "*": {
+      "translation": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": -135
+      },
+      "origin": {
+        "x": 0.65,
+        "y": 0,
+        "z": 0.65
+      },
+      "scale": 3.4
+    }
+  },
+  "groundTransform": {
+    "translation": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "rotation": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "origin": {
+      "x": 0.5,
+      "y": 0,
+      "z": 0.5
+    },
+    "scale": 4.8
+  },
+  "tpHandTransformByType": {
+    "*": {
+      "translation": {
+        "x": -0.48,
+        "y": -0.02,
+        "z": -0.44
+      },
+      "rotation": {
+        "x": 107,
+        "y": 11,
+        "z": 10
+      },
+      "origin": {
+        "x": 0.5,
+        "y": 0,
+        "z": 0.5
+      },
+      "scale": 1.15
+    }
+  }
+}

@@ -35,6 +35,8 @@ namespace krpgwands
                     EnumParticleModel.Quad
                 );
 
+        private float lastParticle = 0f;
+
         public override void OnLoaded(ICoreAPI api)
         {
             if (api.Side != EnumAppSide.Client) return;
@@ -48,8 +50,15 @@ namespace krpgwands
                 {
                     new WorldInteraction()
                     {
-                        ActionLangCode = "heldhelp-chargewand",
+                        ActionLangCode = "heldhelp-wandaim",
                         MouseButton = EnumMouseButton.Right,
+                        Itemstacks = stacks.ToArray()
+                    },
+                    new WorldInteraction()
+                    {
+                        ActionLangCode = "heldhelp-wandaim-self",
+                        MouseButton = EnumMouseButton.Right,
+                        HotKeyCode = EnumModifierKey.SHIFT.ToString(),
                         Itemstacks = stacks.ToArray()
                     }
                 };
@@ -66,34 +75,35 @@ namespace krpgwands
             base.OnHeldInteractStart(slot, byEntity, blockSel, entitySel, firstEvent, ref handling);
             if (handling == EnumHandHandling.PreventDefault) return;
 
+            IPlayer byPlayer = null;
+            if (byEntity is EntityPlayer) byPlayer = byEntity.World.PlayerByUid(((EntityPlayer)byEntity).PlayerUID);
+
+            if (byPlayer.Entity.Controls.Sneak == true && byPlayer.Entity.Controls.CtrlKey == false)
+                byEntity.WatchedAttributes.SetInt("aimSelf", 1);
+            else
+                byEntity.WatchedAttributes.SetInt("aimSelf", 0);
+
             // Not ideal to code the aiming controls this way. Needs an elegant solution - maybe an event bus?
             byEntity.Attributes.SetInt("aiming", 1);
             byEntity.Attributes.SetInt("aimingCancel", 0);
-            byEntity.AnimManager.StartAnimation("bowaim");
+            byEntity.AnimManager.StartAnimation("wandaim");
 
-            IPlayer byPlayer = null;
-            if (byEntity is EntityPlayer) byPlayer = byEntity.World.PlayerByUid(((EntityPlayer)byEntity).PlayerUID);
             byEntity.World.PlaySoundAt(new AssetLocation("game:sounds/effect/translocate-idle"), byEntity, byPlayer, true, 8);
-            
+
+            lastParticle = 0f;
+
             handling = EnumHandHandling.PreventDefault;
         }
 
         public override bool OnHeldInteractStep(float secondsUsed, ItemSlot slot, EntityAgent byEntity, BlockSelection blockSel, EntitySelection entitySel)
         {
-            int num = GameMath.Clamp((int)Math.Ceiling(secondsUsed * 4f), 0, 3);
-            int @int = slot.Itemstack.Attributes.GetInt("renderVariant");
-            slot.Itemstack.TempAttributes.SetInt("renderVariant", num);
-            slot.Itemstack.Attributes.SetInt("renderVariant", num);
-            if (@int != num)
-            {
-                (byEntity as EntityPlayer)?.Player?.InventoryManager.BroadcastHotbarSlot();
-            }
-
             // Make it pretty
             if (byEntity.World is IClientWorldAccessor)
             {
-                if (secondsUsed > 0.6)
+                if (lastParticle + 0.5 < secondsUsed)
                 {
+                    lastParticle = secondsUsed;
+
                     Vec3d pos =
                             byEntity.Pos.XYZ.Add(0, byEntity.LocalEyePos.Y, 0)
                             .Ahead(1f, byEntity.Pos.Pitch, byEntity.Pos.Yaw)
@@ -117,14 +127,9 @@ namespace krpgwands
         public override bool OnHeldInteractCancel(float secondsUsed, ItemSlot slot, EntityAgent byEntity, BlockSelection blockSel, EntitySelection entitySel, EnumItemUseCancelReason cancelReason)
         {
             byEntity.Attributes.SetInt("aiming", 0);
-            byEntity.AnimManager.StopAnimation("bowaim");
+            byEntity.AnimManager.StopAnimation("wandaim");
+            byEntity.WatchedAttributes.SetInt("aimSelf", 0);
 
-            if (byEntity.World is IClientWorldAccessor)
-            {
-                slot.Itemstack.TempAttributes.RemoveAttribute("renderVariant");
-            }
-
-            slot.Itemstack?.Attributes.SetInt("renderVariant", 0);
             if (cancelReason != EnumItemUseCancelReason.Destroyed)
             {
                 (byEntity as EntityPlayer)?.Player?.InventoryManager.BroadcastHotbarSlot();
@@ -137,31 +142,28 @@ namespace krpgwands
 
             return true;
         }
-
+        
         public override void OnHeldInteractStop(float secondsUsed, ItemSlot slot, EntityAgent byEntity, BlockSelection blockSel, EntitySelection entitySel)
         {
+            base.OnHeldInteractStop(secondsUsed, slot, byEntity, blockSel, entitySel);
+
             if (byEntity.Attributes.GetInt("aimingCancel") == 1) return;
             byEntity.Attributes.SetInt("aiming", 0);
-            byEntity.AnimManager.StopAnimation("bowaim");
+            byEntity.AnimManager.StopAnimation("wandaim");
 
-            if (byEntity.World is IClientWorldAccessor)
-            {
-                slot.Itemstack.TempAttributes.RemoveAttribute("renderVariant");
-            }
-
-            slot.Itemstack.Attributes.SetInt("renderVariant", 0);
-            (byEntity as EntityPlayer)?.Player?.InventoryManager.BroadcastHotbarSlot();
             if (secondsUsed < 0.65f)
             {
                 return;
             }
 
-            // Get Enchantments
-            Dictionary<string, int> enchants = new Dictionary<string, int>();
-            foreach (var val in Enum.GetValues(typeof(EnumEnchantments)))
+            IPlayer byPlayer = null;
+            if (byEntity is EntityPlayer) byPlayer = byEntity.World.PlayerByUid(((EntityPlayer)byEntity).PlayerUID);
+            byEntity.World.PlaySoundAt(new AssetLocation("game:sounds/effect/translocate-breakdimension"), byEntity, byPlayer, false, 8);
+
+            if (byEntity.WatchedAttributes.GetInt("aimSelf", 0) == 1)
             {
-                int ePower = slot.Itemstack.Attributes.GetInt(val.ToString(), 0);
-                if (ePower > 0) { enchants.Add(val.ToString(), ePower); }
+                // api.World.Logger.Event("Wand is Aiming Self!");
+                return;
             }
 
             float damage = 0;
@@ -175,11 +177,15 @@ namespace krpgwands
                 accuracyBonus = 1 - slot.Itemstack.Collectible.Attributes["accuracyBonus"].AsFloat(0);
             }
 
-            IPlayer byPlayer = null;
-            if (byEntity is EntityPlayer) byPlayer = byEntity.World.PlayerByUid(((EntityPlayer)byEntity).PlayerUID);
-            byEntity.World.PlaySoundAt(new AssetLocation("game:sounds/effect/translocate-breakdimension"), byEntity, byPlayer, false, 8);
+            // Get Enchantments
+            Dictionary<string, int> enchants = new Dictionary<string, int>();
+            foreach (var val in Enum.GetValues(typeof(EnumEnchantments)))
+            {
+                int ePower = slot.Itemstack.Attributes.GetInt(val.ToString(), 0);
+                if (ePower > 0) { enchants.Add(val.ToString(), ePower); }
+            }
 
-            EntityProperties type = byEntity.World.GetEntityType(new AssetLocation("krpgwands:magicmissile-" + "temporal"));
+            EntityProperties type = byEntity.World.GetEntityType(new AssetLocation("krpgwands:magicmissile-temporal"));
             var entitymagicmissile = byEntity.World.ClassRegistry.CreateEntity(type) as EntityProjectile;
             entitymagicmissile.FiredBy = byEntity;
             entitymagicmissile.Damage = damage;
@@ -210,36 +216,35 @@ namespace krpgwands
             byEntity.AnimManager.StartAnimation("bowhit");
         }
 
-
         public override void GetHeldItemInfo(ItemSlot inSlot, StringBuilder dsc, IWorldAccessor world, bool withDebugInfo)
         {
             base.GetHeldItemInfo(inSlot, dsc, world, withDebugInfo);
+            if (inSlot.Itemstack.Collectible.Attributes != null)
+            {
+                float num = inSlot.Itemstack.Collectible.Attributes?["damage"].AsFloat() ?? 0f;
+                if (num != 0f)
+                {
+                    dsc.AppendLine(Lang.Get("bow-piercingdamage", num));
+                }
 
-            if (inSlot.Itemstack.Collectible.Attributes == null) return;
+                float num2 = inSlot.Itemstack.Collectible?.Attributes["accuracyBonus"].AsFloat() ?? 0f;
+                if (num2 != 0f)
+                {
+                    dsc.AppendLine(Lang.Get("bow-accuracybonus", (num2 > 0f) ? "+" : "", (int)(100f * num2)));
+                }
+            }
 
-            float dmg = 0;
-            if (inSlot.Itemstack.Collectible.Attributes["damage"].Exists)
-                dmg = inSlot.Itemstack.Collectible.Attributes["damage"].AsFloat();
+            // float dmg = 0;
+            // if (inSlot.Itemstack.Collectible.Attributes["damage"].Exists)
+            //    dmg = inSlot.Itemstack.Collectible.Attributes["damage"].AsFloat();
 
-            if (dmg != 0) dsc.AppendLine(Lang.Get("krpgenchantment:krpg-magicdamage-arcane", dmg));
+            // if (dmg != 0) dsc.AppendLine(Lang.Get("krpgenchantment:krpg-magicdamage-arcane", dmg));
 
-            //float dmg = inSlot.Itemstack.Collectible.Attributes?["damage"].AsFloat(0) ?? 0;
-            //if (dmg != 0) dsc.AppendLine(Lang.Get("bow-piercingdamage", dmg));
-
-            float accuracyBonus = 0;
-            if (inSlot.Itemstack.Collectible.Attributes["accuracyBonus"].Exists)
-                accuracyBonus = inSlot.Itemstack.Collectible.Attributes["accuracyBonus"].AsFloat();
-            
-            if (accuracyBonus != 0) dsc.AppendLine(Lang.Get("bow-accuracybonus", accuracyBonus > 0 ? "+" : "", (int)(100 * accuracyBonus)));
-            
-            //float accuracyBonus = inSlot.Itemstack.Collectible?.Attributes["accuracyBonus"].AsFloat(0) ?? 0;
-            //if (accuracyBonus != 0) dsc.AppendLine(Lang.Get("bow-accuracybonus", accuracyBonus > 0 ? "+" : "", (int)(100 * accuracyBonus)));
-        }
-
-
-        public override WorldInteraction[] GetHeldInteractionHelp(ItemSlot inSlot)
-        {
-            return interactions.Append(base.GetHeldInteractionHelp(inSlot));
+            // float accuracyBonus = 0;
+            // if (inSlot.Itemstack.Collectible.Attributes["accuracyBonus"].Exists)
+            //     accuracyBonus = inSlot.Itemstack.Collectible.Attributes["accuracyBonus"].AsFloat();
+            // 
+            // if (accuracyBonus != 0) dsc.AppendLine(Lang.Get("bow-accuracybonus", accuracyBonus > 0 ? "+" : "", (int)(100 * accuracyBonus)));
         }
     }
 }

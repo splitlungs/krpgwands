@@ -1,6 +1,7 @@
 ﻿
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
+using Vintagestory.API.Common.Entities;
 using Vintagestory.API.Server;
 using Vintagestory.GameContent;
 
@@ -18,6 +19,7 @@ namespace krpgwands
             base.Start(api);
 
             api.RegisterItemClass("WandItem", typeof(WandItem));
+            api.RegisterEntity("MagicProjectile", typeof(MagicProjectile));
         }
     }
 }

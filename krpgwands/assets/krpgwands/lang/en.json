@@ -1,6 +1,9 @@
 {
   "entity-magicmissile-temporal": "Temporal Magic Missile",
 
+  "heldhelp-chargewand": "Use Wand",
+  "heldhelp-chargewand-self": "Use Wand on Self",
+
   "item-krpg-wand": "Arcane Wand",
   "item-krpg-wand-bismuthbronze": "Bismuthbronze Wand",
   "item-krpg-wand-blackbronze": "Blackbronze Wand",
@@ -13,5 +16,62 @@
   "item-krpg-wand-silver": "Silver Wand",
   "item-krpg-wand-steel": "Steel Wand",
   "item-krpg-wand-tinbronze": "Tinbronze Wand",
-  "item-krpg-wand-wood": "Wooden Wand"
+  "item-krpg-wand-wood": "Wooden Wand",
+
+  "item-wand-metal-bismuthbronze": "Bismuthbronze Wand",
+  "item-wand-metal-blackbronze": "Blackbronze Wand",
+  "item-wand-metal-brass": "Brass Wand",
+  "item-wand-metal-copper": "Copper Wand",
+  "item-wand-metal-gold": "Gold Wand",
+  "item-wand-metal-iron": "Iron Wand",
+  "item-wand-metal-meteoriciron": "Meteoric Iron Wand",
+  "item-wand-metal-lead": "Lead Wand",
+  "item-wand-metal-silver": "Silver Wand",
+  "item-wand-metal-steel": "Steel Wand",
+  "item-wand-metal-tinbronze": "Tinbronze Wand",
+
+  "item-wand-wood": "Wooden Wand",
+  "item-wand-wood-aged": "Aged Wand",
+  "item-wand-wood-acacia": "Acacia Wand",
+  "item-wand-wood-baldcypress": "Bald Cypress Wand",
+  "item-wand-wood-birch": "Birch Wand",
+  "item-wand-wood-ebony": "Ebony Wand",
+  "item-wand-wood-kapok": "Kapok Wand",
+  "item-wand-wood-larch": "Larch Wand",
+  "item-wand-wood-maple": "Maple Wand",
+  "item-wand-wood-oak": "Oak Wand",
+  "item-wand-wood-pine": "Pine Wand",
+  "item-wand-wood-purpleheart": "Purple Heart Wand",
+  "item-wand-wood-redwood": "Redwood Wand",
+  "item-wand-wood-walnut": "Walnut Wand",
+
+  "item-wand-shaft-wood-aged": "Aged Wand Shaft",
+  "item-wand-shaft-wood-acacia": "Acacia Wand Shaft",
+  "item-wand-shaft-wood-baldcypress": "Bald Cypress Wand Shaft",
+  "item-wand-shaft-wood-birch": "Birch Wand Shaft",
+  "item-wand-shaft-wood-ebony": "Ebony Wand Shaft",
+  "item-wand-shaft-wood-kapok": "Kapok Wand Shaft",
+  "item-wand-shaft-wood-larch": "Larch Wand Shaft",
+  "item-wand-shaft-wood-maple": "Maple Wand Shaft",
+  "item-wand-shaft-wood-oak": "Oak Wand Shaft",
+  "item-wand-shaft-wood-pine": "Pine Wand Shaft",
+  "item-wand-shaft-wood-purpleheart": "Purple Heart Wand Shaft",
+  "item-wand-shaft-wood-redwood": "Redwood Wand Shaft",
+  "item-wand-shaft-wood-walnut": "Walnut Wand Shaft",
+
+  "item-wand-shaft-metal-bismuthbronze": "Bismuthbronze Wand Shaft",
+  "item-wand-shaft-metal-blackbronze": "Blackbronze Wand Shaft",
+  "item-wand-shaft-metal-brass": "Brass Wand Shaft",
+  "item-wand-shaft-metal-copper": "Copper Wand Shaft",
+  "item-wand-shaft-metal-gold": "Gold Wand Shaft",
+  "item-wand-shaft-metal-iron": "Iron Wand Shaft",
+  "item-wand-shaft-metal-lead": "Lead Wand Shaft",
+  "item-wand-shaft-metal-meteoriciron": "Meteoric Iron Wand Shaft",
+  "item-wand-shaft-metal-silver": "Silver Wand Shaft",
+  "item-wand-shaft-metal-steel": "Steel Wand Shaft",
+  "item-wand-shaft-metal-tinbronze": "Tinbronze Wand Shaft",
+
+  "item-wand-handle": "Wand Handle",
+
+  "damage": "Damage"
 }
