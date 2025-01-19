@@ -6,6 +6,7 @@ using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
 using Vintagestory.API.Config;
+using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
 using Vintagestory.API.Util;
 using Vintagestory.GameContent;
@@ -178,10 +179,11 @@ namespace krpgwands
             }
 
             // Get Enchantments
+            ITreeAttribute tree = slot.Itemstack.Attributes?.GetOrAddTreeAttribute("enchantments");
             Dictionary<string, int> enchants = new Dictionary<string, int>();
             foreach (var val in Enum.GetValues(typeof(EnumEnchantments)))
             {
-                int ePower = slot.Itemstack.Attributes.GetInt(val.ToString(), 0);
+                int ePower = tree.GetInt(val.ToString(), 0);
                 if (ePower > 0) { enchants.Add(val.ToString(), ePower); }
             }
 
@@ -204,10 +206,13 @@ namespace krpgwands
             // Make a new ItemStack to pass Enchantments
             entitymagicmissile.ProjectileStack = new ItemStack();
             // Write to temp stack for Enchantments to process
+            // ITreeAttribute newTree = entitymagicmissile.ProjectileStack.Attributes?.GetOrAddTreeAttribute("enchantments");
             foreach (KeyValuePair<string, int> pair in enchants)
             {
-                entitymagicmissile.ProjectileStack.Attributes.SetInt(pair.Key, pair.Value);
+                // newTree.SetInt(pair.Key, pair.Value);
+                entitymagicmissile.WatchedAttributes.SetInt(pair.Key, pair.Value);
             }
+            // entitymagicmissile.ProjectileStack.Attributes.MergeTree(newTree);
 
             byEntity.World.SpawnEntity(entitymagicmissile);
 

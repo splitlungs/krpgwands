@@ -32,7 +32,7 @@
       {
         "code": "passivephysics",
         "groundDragFactor": 1,
-        "airDragFactor": 0.05,
+        "airDragFactor": 0.01,
         "gravityFactor": 0.0
       },
       {

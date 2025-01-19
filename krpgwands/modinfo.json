@@ -4,7 +4,7 @@
   "name": "KRPGWands",
   "authors": ["BloodThunder"],
   "description": "Adds new magical wands and staves. Use as assets or with KRPG Enchantments.",
-  "version": "0.3.1",
+  "version": "0.4.1",
   "dependencies": {
     "game": ""
   }

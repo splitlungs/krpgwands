@@ -50,7 +50,7 @@ namespace krpgwands
             collisionTestBox = SelectionBox.Clone().OmniGrowBy(0.05f);
             GetBehavior<EntityBehaviorPassivePhysics>().OnPhysicsTickCallback = onPhysicsTickCallback;
             ep = api.ModLoader.GetModSystem<EntityPartitioning>();
-            GetBehavior<EntityBehaviorPassivePhysics>().collisionYExtra = 0f;
+            GetBehavior<EntityBehaviorPassivePhysics>().CollisionYExtra = 0f;
         }
 
         private void onPhysicsTickCallback(float dtFac)

@@ -109,6 +109,8 @@ public sealed class PackageTask : FrostingTask<BuildContext>
             context.CopyFile($"../{BuildContext.ProjectName}/modicon.png", $"../Releases/{context.Name}/modicon.png");
         }
         context.Zip($"../Releases/{context.Name}", $"../Releases/{context.Name}_{context.Version}.zip");
+
+        context.CopyFile($"../Releases/{context.Name}_{context.Version}.zip", $"C:/Users/radmin/AppData/Roaming/VintagestoryData/Mods/{context.Name}_{context.Version}.zip");
     }
 }
 
