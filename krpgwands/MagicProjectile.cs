@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
@@ -6,38 +7,32 @@ using Vintagestory.API.Common.Entities;
 using Vintagestory.API.MathTools;
 using Vintagestory.API.Server;
 using Vintagestory.GameContent;
+using static System.Net.Mime.MediaTypeNames;
 
-namespace krpgwands
+namespace KRPGLib.Wands
 {
     public class MagicProjectile : Entity
     {
         private bool beforeCollided;
-
         private bool stuck;
-
         private long msLaunch;
-
         private long msCollide;
-
         private Vec3d motionBeforeCollide = new Vec3d();
-
         private CollisionTester collTester = new CollisionTester();
-
         public Entity FiredBy;
-
+        protected long FiredByMountEntityId;
         public float Weight = 0.1f;
-
         public float Damage;
-
+        public int DamageTier;
+        public EnumDamageType DamageType;
+        public ItemSlot SourceSlot;
         public ItemStack ProjectileStack;
-
         public float DropOnImpactChance;
-
         public bool DamageStackOnImpact;
-
         private Cuboidf collisionTestBox;
-
         private EntityPartitioning ep;
+        protected List<long> entitiesHit = new List<long>();
+        public bool EntityHit { get; protected set; }
 
         public override bool ApplyGravity => !stuck;
 
@@ -46,22 +41,36 @@ namespace krpgwands
         public override void Initialize(EntityProperties properties, ICoreAPI api, long InChunkIndex3d)
         {
             base.Initialize(properties, api, InChunkIndex3d);
+            if (Api.Side == EnumAppSide.Server && FiredBy != null)
+            {
+                WatchedAttributes.SetLong("firedBy", FiredBy.EntityId);
+            }
+
+            if (Api.Side == EnumAppSide.Client)
+            {
+                FiredBy = Api.World.GetEntityById(WatchedAttributes.GetLong("firedBy", 0L));
+            }
+
             msLaunch = World.ElapsedMilliseconds;
+            if (FiredBy != null && FiredBy is EntityAgent entityAgent && entityAgent.MountedOn?.Entity != null)
+            {
+                FiredByMountEntityId = entityAgent.MountedOn.Entity.EntityId;
+            }
+
             collisionTestBox = SelectionBox.Clone().OmniGrowBy(0.05f);
             GetBehavior<EntityBehaviorPassivePhysics>().OnPhysicsTickCallback = onPhysicsTickCallback;
             ep = api.ModLoader.GetModSystem<EntityPartitioning>();
             GetBehavior<EntityBehaviorPassivePhysics>().CollisionYExtra = 0f;
         }
-
         private void onPhysicsTickCallback(float dtFac)
         {
-            if (ShouldDespawn || !Alive || World.ElapsedMilliseconds <= msCollide + 5)
+            if (ShouldDespawn || !Alive || World.ElapsedMilliseconds <= msCollide + 500)
             {
                 return;
             }
 
             EntityPos sidedPos = base.SidedPos;
-            if (sidedPos.Motion.X == 0.0 && sidedPos.Motion.Y == 0.0 && sidedPos.Motion.Z == 0.0)
+            if (sidedPos.Motion.LengthSq() < 0.040000000000000008)
             {
                 return;
             }
@@ -101,6 +110,16 @@ namespace krpgwands
                     return true;
                 }
 
+                if (entitiesHit.Contains(e.EntityId))
+                {
+                    return false;
+                }
+
+                if (e.EntityId == FiredByMountEntityId && World.ElapsedMilliseconds - msLaunch < 500)
+                {
+                    return true;
+                }
+
                 if (e.SelectionBox.ToDouble().Translate(e.ServerPos.X, e.ServerPos.Y, e.ServerPos.Z).IntersectsOrTouches(projectileBox))
                 {
                     impactOnEntity(e);
@@ -110,7 +129,6 @@ namespace krpgwands
                 return true;
             }, EnumEntitySearchType.Creatures);
         }
-
         public override void OnGameTick(float dt)
         {
             base.OnGameTick(dt);
@@ -135,17 +153,18 @@ namespace krpgwands
                 }
 
                 IsColliding(sidedPos, impactSpeed);
-                return;
+                entitiesHit.Clear();
             }
-
-            SetRotation();
-            if (!TryAttackEntity(impactSpeed))
+            else
             {
-                beforeCollided = false;
-                motionBeforeCollide.Set(sidedPos.Motion.X, sidedPos.Motion.Y, sidedPos.Motion.Z);
+                SetRotation();
+                if (!TryAttackEntity(impactSpeed))
+                {
+                    beforeCollided = false;
+                    motionBeforeCollide.Set(sidedPos.Motion.X, sidedPos.Motion.Y, sidedPos.Motion.Z);
+                }
             }
         }
-
         public override void OnCollided()
         {
             EntityPos sidedPos = base.SidedPos;
@@ -259,7 +278,6 @@ namespace krpgwands
                     flag3 = false;
                 }
             }
-
             msCollide = World.ElapsedMilliseconds;
             sidedPos.Motion.Set(0.0, 0.0, 0.0);
             if (flag3 && World.Side == EnumAppSide.Server)
@@ -271,13 +289,17 @@ namespace krpgwands
                     num *= FiredBy.Stats.GetBlended("rangedWeaponsDamage");
                 }
 
-                bool flag4 = entity.ReceiveDamage(new DamageSource
+                DamageSource damageSource = new DamageSource
                 {
                     Source = ((serverPlayer != null) ? EnumDamageSource.Player : EnumDamageSource.Entity),
                     SourceEntity = this,
                     CauseEntity = FiredBy,
                     Type = EnumDamageType.PiercingAttack
-                }, num);
+                };
+
+                KRPGWandsMod wands = Api.ModLoader.GetModSystem<KRPGWandsMod>();
+                bool flag4 = wands.DealDamage(entity, damageSource, SourceSlot, num);
+
                 float knockbackResistance = entity.Properties.KnockbackResistance;
                 entity.SidedPos.Motion.Add((double)knockbackResistance * sidedPos.Motion.X * (double)Weight, (double)knockbackResistance * sidedPos.Motion.Y * (double)Weight, (double)knockbackResistance * sidedPos.Motion.Z * (double)Weight);
                 int num2 = 1;
@@ -298,6 +320,8 @@ namespace krpgwands
                 }
             }
         }
+
+
 
         public virtual void SetRotation()
         {

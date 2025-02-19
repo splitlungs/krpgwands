@@ -11,9 +11,9 @@ using Vintagestory.API.MathTools;
 using Vintagestory.API.Util;
 using Vintagestory.GameContent;
 
-namespace krpgwands
+namespace KRPGLib.Wands
 {
-    public enum EnumEnchantments { chilling, flaming, frost, harming, healing, knockback, igniting, lightning, pit, shocking }
+    // public enum EnumEnchantments { chilling, flaming, frost, harming, healing, knockback, igniting, lightning, pit, shocking }
 
     /// <summary>
     /// Cloned from ItemBow.cs
@@ -177,23 +177,19 @@ namespace krpgwands
 
                 accuracyBonus = 1 - slot.Itemstack.Collectible.Attributes["accuracyBonus"].AsFloat(0);
             }
-
-            // Get Enchantments
-            ITreeAttribute tree = slot.Itemstack.Attributes?.GetOrAddTreeAttribute("enchantments");
-            Dictionary<string, int> enchants = new Dictionary<string, int>();
-            foreach (var val in Enum.GetValues(typeof(EnumEnchantments)))
-            {
-                int ePower = tree.GetInt(val.ToString(), 0);
-                if (ePower > 0) { enchants.Add(val.ToString(), ePower); }
-            }
-
+            //ItemBow
             EntityProperties type = byEntity.World.GetEntityType(new AssetLocation("krpgwands:magicmissile-temporal"));
-            var entitymagicmissile = byEntity.World.ClassRegistry.CreateEntity(type) as EntityProjectile;
+            var entitymagicmissile = byEntity.World.ClassRegistry.CreateEntity(type) as MagicProjectile;
             entitymagicmissile.FiredBy = byEntity;
             entitymagicmissile.Damage = damage;
+            entitymagicmissile.DamageTier = 0;
+            entitymagicmissile.DamageType = EnumDamageType.PiercingAttack;
+            entitymagicmissile.SourceSlot = slot;
+            entitymagicmissile.DropOnImpactChance = 0;
+            entitymagicmissile.ProjectileStack = new ItemStack(); // Make a new ItemStack to pass Enchantments
             float acc = Math.Max(0.001f, (1 - byEntity.Attributes.GetFloat("aimingAccuracy", 0)));
-            double rndpitch = byEntity.WatchedAttributes.GetDouble("aimingRandPitch", 1) * acc * (0.75 * accuracyBonus);
-            double rndyaw = byEntity.WatchedAttributes.GetDouble("aimingRandYaw", 1) * acc * (0.75 * accuracyBonus);
+            double rndpitch = byEntity.WatchedAttributes.GetDouble("aimingRandPitch", 1) * acc * (0.75 * (double)accuracyBonus);
+            double rndyaw = byEntity.WatchedAttributes.GetDouble("aimingRandYaw", 1) * acc * (0.75 * (double)accuracyBonus);
             Vec3d pos = byEntity.ServerPos.XYZ.Add(0, byEntity.LocalEyePos.Y, 0);
             Vec3d aheadPos = pos.AheadCopy(1, byEntity.SidedPos.Pitch + rndpitch, byEntity.SidedPos.Yaw + rndyaw);
             Vec3d velocity = (aheadPos - pos) * byEntity.Stats.GetBlended("bowDrawingStrength");
@@ -202,22 +198,9 @@ namespace krpgwands
             entitymagicmissile.Pos.SetFrom(entitymagicmissile.ServerPos);
             entitymagicmissile.World = byEntity.World;
             entitymagicmissile.SetRotation();
-
-            // Make a new ItemStack to pass Enchantments
-            entitymagicmissile.ProjectileStack = new ItemStack();
-            // Write to temp stack for Enchantments to process
-            // ITreeAttribute newTree = entitymagicmissile.ProjectileStack.Attributes?.GetOrAddTreeAttribute("enchantments");
-            foreach (KeyValuePair<string, int> pair in enchants)
-            {
-                // newTree.SetInt(pair.Key, pair.Value);
-                entitymagicmissile.WatchedAttributes.SetInt(pair.Key, pair.Value);
-            }
-            // entitymagicmissile.ProjectileStack.Attributes.MergeTree(newTree);
-
             byEntity.World.SpawnEntity(entitymagicmissile);
-
             slot.Itemstack.Collectible.DamageItem(byEntity.World, byEntity, slot);
-
+            slot.MarkDirty();
             byEntity.AnimManager.StartAnimation("bowhit");
         }
 

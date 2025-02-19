@@ -17,19 +17,19 @@
   "damagedby": [ "attacking" ],
   "durability": 25,
   "durabilityByType": {
-    "*-acacia": 175,
-    "*-aged": 75,
-    "*-baldcypress": 175,
-    "*-birch": 50,
-    "*-ebony": 200,
-    "*-kapok": 200,
-    "*-larch": 150,
-    "*-maple": 50,
-    "*-oak": 250,
-    "*-pine": 50,
-    "*-purpleheart": 150,
-    "*-redwood": 125,
-    "*-walnut": 125
+    "*-acacia": 200,
+    "*-aged": 100,
+    "*-baldcypress": 200,
+    "*-birch": 100,
+    "*-ebony": 400,
+    "*-kapok": 400,
+    "*-larch": 300,
+    "*-maple": 150,
+    "*-oak": 300,
+    "*-pine": 100,
+    "*-purpleheart": 200,
+    "*-redwood": 250,
+    "*-walnut": 150
   },
   "texturesByType": {
     "*": { "wood": { "base": "game:block/wood/planks/{wood}1" } }

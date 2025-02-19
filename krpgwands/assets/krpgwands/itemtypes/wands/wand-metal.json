@@ -24,8 +24,9 @@
     "*-gold": 250,
     "*-iron": 500,
     "*-lead": 50,
+    "*-meteoriciron": 600,
     "*-silver": 275,
-    "*-steel": 550,
+    "*-steel": 700,
     "*-tinbronze": 300
   },
   "texturesByType": {
@@ -50,6 +51,7 @@
       "*-gold": 1,
       "*-iron": 0.9,
       "*-lead": 0.5,
+      "*-meteoriciron": 0.97,
       "*-silver": 0.95,
       "*-steel": 0.92,
       "*-tinbronze": 0.8
