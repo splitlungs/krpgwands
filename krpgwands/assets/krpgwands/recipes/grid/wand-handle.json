@@ -1,5 +1,5 @@
 {
-  "ingredientPattern": "K,CWL,RWR",
+  "ingredientPattern": "_K_,CWL,RWR",
   "width": 3,
   "height": 3,
   "ingredients": {
