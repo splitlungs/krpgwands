@@ -43,7 +43,7 @@
       "groupBy": [ "wand-wood-*" ]
     },
     "damageByType": {
-      "*": 0
+      "*": 0.01
     },
     "accuracyBonusByType": {
       "*-acacia": 0.87,

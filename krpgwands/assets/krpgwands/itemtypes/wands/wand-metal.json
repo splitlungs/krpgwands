@@ -41,7 +41,7 @@
       "groupBy": [ "wand-metal-*" ]
     },
     "damageByType": {
-      "*": 0
+      "*": 0.01
     },
     "accuracyBonusByType": {
       "*-bismuthbronze": 0.85,

@@ -1,14 +1,15 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
-    <OutputPath>bin\$(Configuration)\Mods\mod</OutputPath>
+    <OutputPath>bin/$(Configuration)/Mods/mod</OutputPath>
+    <VINTAGE_STORY>/run/media/nixy/Games01/Vintagestory</VINTAGE_STORY>
   </PropertyGroup>
 
   <ItemGroup>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>C:\Users\radmin\AppData\Roaming\Vintagestory\Lib\Newtonsoft.Json.dll</HintPath>
+      <HintPath>$(VINTAGE_STORY)/Lib/Newtonsoft.Json.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="VintagestoryAPI">
@@ -16,15 +17,15 @@
       <Private>false</Private>
     </Reference>
     <Reference Include="VSCreativeMod">
-      <HintPath>C:\Users\radmin\AppData\Roaming\Vintagestory\Mods\VSCreativeMod.dll</HintPath>
+      <HintPath>$(VINTAGE_STORY)/Mods/VSCreativeMod.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="VSEssentials">
-      <HintPath>C:\Users\radmin\AppData\Roaming\Vintagestory\Mods\VSEssentials.dll</HintPath>
+      <HintPath>$(VINTAGE_STORY)/Mods/VSEssentials.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="VSSurvivalMod">
-      <HintPath>C:\Users\radmin\AppData\Roaming\Vintagestory\Mods\VSSurvivalMod.dll</HintPath>
+      <HintPath>$(VINTAGE_STORY)/Mods/VSSurvivalMod.dll</HintPath>
       <Private>False</Private>
     </Reference>
 <!--#if (IncludeVSSurvivalMod)
